@@ -28,3 +28,7 @@ path = "./examples/filtering.rs"
 [[example]]
 name = "importing"
 path = "./examples/importing.rs"
+
+[[example]]
+name = "toggle"
+path = "./examples/toggle.rs"
