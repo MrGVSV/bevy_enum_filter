@@ -53,19 +53,19 @@ mod systems {
         }
     }
 
-    pub fn on_spawn_a(query: Query<Entity, Added<enum_filter!(Choice::A)>>) {
+    pub fn on_spawn_a(query: Query<Entity, Added<Enum!(Choice::A)>>) {
         for _ in &query {
             println!("Spawned entity with `Choice::A`!");
         }
     }
 
-    pub fn on_spawn_b(query: Query<Entity, Added<enum_filter!(Choice::B)>>) {
+    pub fn on_spawn_b(query: Query<Entity, Added<Enum!(Choice::B)>>) {
         for _ in &query {
             println!("Spawned entity with `Choice::B`!");
         }
     }
 
-    pub fn on_spawn_c(query: Query<Entity, Added<enum_filter!(Choice::C)>>) {
+    pub fn on_spawn_c(query: Query<Entity, Added<Enum!(Choice::C)>>) {
         for _ in &query {
             println!("Spawned entity with `Choice::C`!");
         }

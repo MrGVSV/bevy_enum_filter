@@ -2,14 +2,14 @@ mod extensions;
 mod filter_trait;
 mod systems;
 
-pub use bevy_enum_filter_derive::{enum_filter, EnumFilter};
+pub use bevy_enum_filter_derive::{Enum, EnumFilter};
 pub use filter_trait::EnumFilter;
 pub use systems::watch_for_enum;
 
 pub mod prelude {
     pub use super::extensions::AddEnumFilter;
     pub use super::filter_trait::EnumFilter;
-    pub use bevy_enum_filter_derive::{enum_filter, EnumFilter};
+    pub use bevy_enum_filter_derive::{Enum, EnumFilter};
 }
 
 #[cfg(test)]
@@ -49,7 +49,7 @@ mod tests {
         assert!(app.world.get_entity(entity).is_none());
 
         fn remove_entity_with_enum(
-            query: Query<Entity, With<enum_filter!(TestEnum::Struct)>>,
+            query: Query<Entity, With<Enum!(TestEnum::Struct)>>,
             mut commands: Commands,
         ) {
             for entity in &query {

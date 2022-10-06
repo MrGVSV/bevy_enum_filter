@@ -38,13 +38,13 @@ fn toggle(mut query: Query<&mut Toggle>, input: Res<Input<KeyCode>>) {
     }
 }
 
-fn on_state(query: Query<Entity, Added<enum_filter!(Toggle::On)>>) {
+fn on_state(query: Query<Entity, Added<Enum!(Toggle::On)>>) {
     for _ in &query {
         println!("Entity is in `On` state. Press `Space` to toggle.");
     }
 }
 
-fn off_state(query: Query<Entity, Added<enum_filter!(Toggle::Off)>>) {
+fn off_state(query: Query<Entity, Added<Enum!(Toggle::Off)>>) {
     for _ in &query {
         println!("Entity is in `Off` state. Press `Space` to toggle.");
     }

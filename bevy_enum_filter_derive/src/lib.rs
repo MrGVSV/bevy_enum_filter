@@ -28,7 +28,7 @@ use syn::{parse_macro_input, Data, DeriveInput, Path, PathSegment, Token};
 ///
 /// We would end up generating the module `foo_filters` which contains the markers `Bar` and `Baz`.
 ///
-/// See the [`enum_filter!`] macro for how to properly use this generated module.
+/// See the [`Enum!`] macro for how to properly use this generated module.
 #[proc_macro_derive(EnumFilter)]
 pub fn derive_enum_filter(item: TokenStream) -> TokenStream {
     let input = parse_macro_input!(item as DeriveInput);
@@ -122,8 +122,8 @@ pub fn derive_enum_filter(item: TokenStream) -> TokenStream {
 /// The basic usage of this macro looks like this:
 ///
 /// ```ignore
-/// type Marker = enum_filter!(Enum::Variant);
-/// // or, enum_filter!(path::to::Enum::Variant)
+/// type Marker = Enum!(Enum::Variant);
+/// // or, Enum!(path::to::Enum::Variant)
 /// ```
 ///
 /// > Note: It doesn't matter whether `Enum::Variant` is a unit, tuple, or struct variant—
@@ -132,12 +132,13 @@ pub fn derive_enum_filter(item: TokenStream) -> TokenStream {
 /// ```ignore
 /// // Make sure everything is in scope
 /// use path::to::{Foo, foo_filters};
-/// type Marker = enum_filter!(Foo::Baz);
+/// type Marker = Enum!(Foo::Baz);
 /// ```
 ///
-/// [`EnumFilter`]: derive_enum_filter
+/// [`EnumFilter`]: derive@EnumFilter
+#[allow(non_snake_case)]
 #[proc_macro]
-pub fn enum_filter(item: TokenStream) -> TokenStream {
+pub fn Enum(item: TokenStream) -> TokenStream {
     let input = parse_macro_input!(item as Path);
 
     let path_len = input.segments.len();

@@ -21,7 +21,7 @@ enum ItemType {
   Potion(usize)
 }
 
-fn apply_potion(item_query: Query<(Entity, &ItemType), Added<enum_filter!(ItemType::Potion)>>) {
+fn apply_potion(item_query: Query<(Entity, &ItemType), Added<Enum!(ItemType::Potion)>>) {
   // ...
 }
 
@@ -62,7 +62,7 @@ mod item_type_filters {
 
 When we then register our enum using `app.add_enum_filter`, we are adding a system that watches for changes (additions/mutations) related to that enum component. The system will then add or remove the appropriate marker struct whenever there's a change.
 
-The `enum_filter!` macro then takes the given enum path and grabs the corresponding marker struct from the module. So `enum_filter!(ItemType::Potion)` corresponds to the `item_type_filters::Potion` type.
+The `Enum!` macro then takes the given enum path and grabs the corresponding marker struct from the module. So `Enum!(ItemType::Potion)` corresponds to the `item_type_filters::Potion` type.
 
 > 📢: This is why you *must* have your generated module in scope!
 

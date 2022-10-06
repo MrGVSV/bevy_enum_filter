@@ -40,19 +40,19 @@ fn spawn(mut commands: Commands, input: Res<Input<KeyCode>>) {
     }
 }
 
-fn on_spawn_a(query: Query<Entity, Added<enum_filter!(Choice::A)>>) {
+fn on_spawn_a(query: Query<Entity, Added<Enum!(Choice::A)>>) {
     for _ in &query {
         println!("Spawned entity with `Choice::A`!");
     }
 }
 
-fn on_spawn_b(query: Query<Entity, Added<enum_filter!(Choice::B)>>) {
+fn on_spawn_b(query: Query<Entity, Added<Enum!(Choice::B)>>) {
     for _ in &query {
         println!("Spawned entity with `Choice::B`!");
     }
 }
 
-fn on_spawn_c(query: Query<Entity, Added<enum_filter!(Choice::C)>>) {
+fn on_spawn_c(query: Query<Entity, Added<Enum!(Choice::C)>>) {
     for _ in &query {
         println!("Spawned entity with `Choice::C`!");
     }
