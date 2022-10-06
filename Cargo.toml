@@ -1,6 +1,6 @@
 [package]
 name = "bevy_enum_filter"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Gino Valente <gino.valente.code@gmail.com>"]
 description = "Filter by enum variant in Bevy queries"
