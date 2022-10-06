@@ -1,0 +1,78 @@
+# bevy_enum_filter
+
+Filter queries by enum variants!
+
+In Rust, enum variants *aren't* types. This means we normally can't filter for them in a Bevy `Query`. The alternative, then is to use a set of "marker" components. This works well enough, but we miss out on the semantics of using an enum (and the ability to perform enum-specific operations such as `match`-ing).
+
+This crate allows us to query for entities based on the *specific* variant of an enum component:
+
+```rust
+use bevy::prelude::*;
+use bevy_enum_filter::prelude::*;
+
+#[derive(Component, EnumFilter)]
+enum ItemType {
+  Equippable(usize),
+  Weapon(usize),
+  Potion(usize)
+}
+
+fn apply_potion(item_query: Query<(Entity, &ItemType), Added<enum_filter!(ItemType::Potion)>>) {
+  // ...
+}
+
+fn main() {
+  App::new()
+    // ...
+    .add_enum_filter::<ItemType>()
+    .add_system(apply_potion)
+    .run()
+}
+```
+
+## 📲 Installation
+
+Add the following to the `[dependencies]` section of your `Cargo.toml`.
+
+```
+bevy_enum_filter = "0.1"
+```
+
+## 🤨 How it works
+
+*Surprise! It's just marker structs!*
+
+Deriving `EnumFilter` generates a module containing a marker struct per variant. The module is named using the enum's name (snake-cased) followed by `_filters`. For example, our `ItemType` enum generates the following module:
+
+```rust
+// Auto-generated!
+mod item_type_filters {
+  #[derive(Component)]
+  pub struct Equippable;
+  #[derive(Component)]
+  pub struct Weapon;
+  #[derive(Component)]
+  pub struct Potion;
+}
+```
+
+When we then register our enum using `app.add_enum_filter`, we are adding a system that watches for changes (additions/mutations) related to that enum component. The system will then add or remove the appropriate marker struct whenever there's a change.
+
+The `enum_filter!` macro then takes the given enum path and grabs the corresponding marker struct from the module. So `enum_filter!(ItemType::Potion)` corresponds to the `item_type_filters::Potion` type.
+
+> 📢: This is why you *must* have your generated module in scope!
+
+##### Caveats
+
+Because this is basically just change detection under the hood, it's important to remember when the filter actually takes effect. By default, the system added by `app.add_enum_filter` runs in the `PostUpdate` stage. This means you will not see the filter work until the that stage is complete.
+
+>  And remember that any components changed in `Update` would not see their filters work until `PostUpdate` anyway since we need to cross a stage boundary for commands to flush. This means we realistically only lose out on a single stage.
+
+If you need it to run after a certain system or within a certain stage, you could always add the `watch_for_enum` system yourself.
+
+## 🕊 Bevy Compatibility
+
+| bevy  | bevy_enum_filter |
+| :---- | ---------------- |
+| 0.8.1 | 0.1.0            |
+

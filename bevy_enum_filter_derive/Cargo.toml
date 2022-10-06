@@ -1,0 +1,20 @@
+[package]
+name = "bevy_enum_filter_derive"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gino Valente <gino.valente.code@gmail.com>"]
+description = "Derive and helper macros for bevy_enum_filter"
+repository = "https://github.com/MrGVSV/bevy_enum_filter"
+license = "MIT OR Apache-2.0"
+keywords = ["bevy", "enum", "filter", "variant", "query"]
+categories = ["game-development"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "1.0"
+proc-macro2 = "1.0"
+proc-macro-crate = "1.2"
+quote = "1.0"
+convert_case = "0.6.0"
