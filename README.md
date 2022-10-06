@@ -1,5 +1,9 @@
 # bevy_enum_filter
 
+[![Crates.io](https://img.shields.io/crates/v/bevy_enum_filter)](https://crates.io/crates/bevy_enum_filter)
+[![Docs](https://img.shields.io/docsrs/bevy_enum_filter)](https://docs.rs/bevy_enum_filter/) 
+[![License](https://img.shields.io/crates/l/bevy_enum_filter)](./LICENSE.md) 
+
 Filter queries by enum variants!
 
 In Rust, enum variants *aren't* types. This means we normally can't filter for them in a Bevy `Query`. The alternative, then is to use a set of "marker" components. This works well enough, but we miss out on the semantics of using an enum (and the ability to perform enum-specific operations such as `match`-ing).
