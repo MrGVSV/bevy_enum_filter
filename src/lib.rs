@@ -35,7 +35,7 @@ mod tests {
         app.add_event::<FoundFilter>();
         app.add_system(remove_entity_with_enum);
 
-        let entity = app.world.spawn().id();
+        let entity = app.world.spawn_empty().id();
 
         app.update();
 
@@ -64,7 +64,7 @@ mod tests {
     fn should_automatically_handle_markers() {
         let mut app = App::new();
         app.add_enum_filter::<TestEnum>();
-        let entity = app.world.spawn().id();
+        let entity = app.world.spawn_empty().id();
 
         app.update();
 

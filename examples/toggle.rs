@@ -3,13 +3,14 @@ use bevy_enum_filter::prelude::*;
 
 fn main() {
     App::new()
-        .insert_resource(WindowDescriptor {
-            width: 100.0,
-            height: 100.0,
-            title: "Toggle Example".to_string(),
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "Toggle Example".to_string(),
+                resolution: (100., 100.).into(),
+                ..default()
+            }),
             ..default()
-        })
-        .add_plugins(DefaultPlugins)
+        }))
         // ! === Add the Filter === ! //
         .add_enum_filter::<Toggle>()
         // ! === Add the Filter === ! //
@@ -55,5 +56,5 @@ fn info() {
 }
 
 fn spawn(mut commands: Commands) {
-    commands.spawn().insert(Toggle::Off);
+    commands.spawn(Toggle::Off);
 }
