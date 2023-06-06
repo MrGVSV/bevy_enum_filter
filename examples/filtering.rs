@@ -3,13 +3,14 @@ use bevy_enum_filter::prelude::*;
 
 fn main() {
     App::new()
-        .insert_resource(WindowDescriptor {
-            width: 100.0,
-            height: 100.0,
-            title: "Filter Example".to_string(),
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "Filter Example".to_string(),
+                resolution: (100., 100.).into(),
+                ..default()
+            }),
             ..default()
-        })
-        .add_plugins(DefaultPlugins)
+        }))
         // ! === Add the Filter === ! //
         .add_enum_filter::<Choice>()
         // ! === Add the Filter === ! //
@@ -30,13 +31,13 @@ enum Choice {
 
 fn spawn(mut commands: Commands, input: Res<Input<KeyCode>>) {
     if input.just_pressed(KeyCode::A) {
-        commands.spawn_bundle((Choice::A,));
+        commands.spawn((Choice::A,));
     }
     if input.just_pressed(KeyCode::B) {
-        commands.spawn_bundle((Choice::B,));
+        commands.spawn((Choice::B,));
     }
     if input.just_pressed(KeyCode::C) {
-        commands.spawn_bundle((Choice::C,));
+        commands.spawn((Choice::C,));
     }
 }
 

@@ -1,6 +1,7 @@
 use crate::filter_trait::EnumFilter;
 use crate::systems::watch_for_enum;
-use bevy_app::{App, CoreStage};
+use bevy_app::{App, CoreSet};
+use bevy_ecs::schedule::IntoSystemConfig;
 
 /// Extension trait for [`App`] that enables adding an [enum filter].
 ///
@@ -17,6 +18,6 @@ pub trait AddEnumFilter {
 
 impl AddEnumFilter for App {
     fn add_enum_filter<T: EnumFilter>(&mut self) -> &mut Self {
-        self.add_system_to_stage(CoreStage::PostUpdate, watch_for_enum::<T>)
+        self.add_system(watch_for_enum::<T>.in_base_set(CoreSet::PostUpdate))
     }
 }

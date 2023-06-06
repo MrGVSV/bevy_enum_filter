@@ -14,12 +14,12 @@ exclude = ["assets/**/*", ".github/**/*", "screenshots/**/*"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bevy_app = { version = "0.8", default_features = false }
-bevy_ecs = { version = "0.8", default_features = false }
+bevy_app = { version = "0.10.1", default_features = false }
+bevy_ecs = { version = "0.10.1", default_features = false }
 bevy_enum_filter_derive = { path = "./bevy_enum_filter_derive", version = "0.1.0" }
 
 [dev-dependencies]
-bevy = "0.8"
+bevy = "0.10.1"
 
 [[example]]
 name = "filtering"
