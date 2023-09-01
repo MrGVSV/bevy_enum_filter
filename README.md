@@ -29,7 +29,7 @@ fn main() {
   App::new()
     // ...
     .add_enum_filter::<ItemType>()
-    .add_system(apply_potion)
+    .add_systems(Update, apply_potion)
     .run()
 }
 ```
@@ -76,7 +76,8 @@ If you need it to run after a certain system or within a certain stage, you coul
 
 ## 🕊 Bevy Compatibility
 
-| bevy  | bevy_enum_filter |
-| :---- | ---------------- |
-| 0.8.1 | 0.1.0            |
+| bevy   | bevy_enum_filter |
+| :----- | ---------------- |
+| 0.8.1  | 0.1.0            |
+| 0.11.x | 0.2.0            |
 

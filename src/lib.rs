@@ -28,12 +28,13 @@ mod tests {
 
     #[test]
     fn should_use_enum_filter() {
+        #[derive(Event)]
         struct FoundFilter(bool);
 
         let mut app = App::new();
         app.add_enum_filter::<TestEnum>();
         app.add_event::<FoundFilter>();
-        app.add_system(remove_entity_with_enum);
+        app.add_systems(Update, remove_entity_with_enum);
 
         let entity = app.world.spawn_empty().id();
 
