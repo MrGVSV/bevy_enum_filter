@@ -38,7 +38,7 @@ fn main() {
 
 Add the following to the `[dependencies]` section of your `Cargo.toml`.
 
-```
+```text
 bevy_enum_filter = "0.1"
 ```
 
@@ -51,11 +51,11 @@ Deriving `EnumFilter` generates a module containing a marker struct per variant.
 ```rust
 // Auto-generated!
 mod item_type_filters {
-  #[derive(Component)]
+  #[derive(bevy::prelude::Component)]
   pub struct Equippable;
-  #[derive(Component)]
+  #[derive(bevy::prelude::Component)]
   pub struct Weapon;
-  #[derive(Component)]
+  #[derive(bevy::prelude::Component)]
   pub struct Potion;
 }
 ```
