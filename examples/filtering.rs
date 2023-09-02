@@ -14,11 +14,8 @@ fn main() {
         // ! === Add the Filter === ! //
         .add_enum_filter::<Choice>()
         // ! === Add the Filter === ! //
-        .add_startup_system(info)
-        .add_system(spawn)
-        .add_system(on_spawn_a)
-        .add_system(on_spawn_b)
-        .add_system(on_spawn_c)
+        .add_systems(Startup, info)
+        .add_systems(Update, (spawn, on_spawn_a, on_spawn_b, on_spawn_c))
         .run();
 }
 

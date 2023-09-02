@@ -29,7 +29,7 @@ fn main() {
   App::new()
     // ...
     .add_enum_filter::<ItemType>()
-    .add_system(apply_potion)
+    .add_systems(Update, apply_potion)
     .run()
 }
 ```
@@ -38,7 +38,7 @@ fn main() {
 
 Add the following to the `[dependencies]` section of your `Cargo.toml`.
 
-```
+```text
 bevy_enum_filter = "0.1"
 ```
 
@@ -51,11 +51,11 @@ Deriving `EnumFilter` generates a module containing a marker struct per variant.
 ```rust
 // Auto-generated!
 mod item_type_filters {
-  #[derive(Component)]
+  #[derive(bevy::prelude::Component)]
   pub struct Equippable;
-  #[derive(Component)]
+  #[derive(bevy::prelude::Component)]
   pub struct Weapon;
-  #[derive(Component)]
+  #[derive(bevy::prelude::Component)]
   pub struct Potion;
 }
 ```
@@ -76,7 +76,8 @@ If you need it to run after a certain system or within a certain stage, you coul
 
 ## 🕊 Bevy Compatibility
 
-| bevy  | bevy_enum_filter |
-| :---- | ---------------- |
-| 0.8.1 | 0.1.0            |
+| bevy   | bevy_enum_filter |
+| :----- | ---------------- |
+| 0.8.1  | 0.1.0            |
+| 0.11.x | 0.2.0            |
 

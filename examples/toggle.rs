@@ -14,11 +14,8 @@ fn main() {
         // ! === Add the Filter === ! //
         .add_enum_filter::<Toggle>()
         // ! === Add the Filter === ! //
-        .add_startup_system(info)
-        .add_startup_system(spawn)
-        .add_system(toggle)
-        .add_system(on_state)
-        .add_system(off_state)
+        .add_systems(Startup, (info, spawn))
+        .add_systems(Update, (toggle, on_state, off_state))
         .run();
 }
 

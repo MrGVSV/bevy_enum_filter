@@ -14,11 +14,16 @@ fn main() {
         // ! === Add the Filter === ! //
         .add_enum_filter::<components::Choice>()
         // ! === Add the Filter === ! //
-        .add_startup_system(systems::info)
-        .add_system(systems::spawn)
-        .add_system(systems::on_spawn_a)
-        .add_system(systems::on_spawn_b)
-        .add_system(systems::on_spawn_c)
+        .add_systems(Startup, systems::info)
+        .add_systems(
+            Update,
+            (
+                systems::spawn,
+                systems::on_spawn_a,
+                systems::on_spawn_b,
+                systems::on_spawn_c,
+            ),
+        )
         .run();
 }
 
