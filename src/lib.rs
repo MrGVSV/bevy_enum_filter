@@ -18,6 +18,7 @@ pub mod prelude {
 mod tests {
     use super::prelude::*;
     use bevy::prelude::*;
+    use bevy_app::PostStartup;
 
     #[derive(Component, EnumFilter)]
     enum TestEnum {
@@ -101,5 +102,46 @@ mod tests {
             .world
             .entity(entity)
             .contains::<test_enum_filters::Unit>());
+    }
+
+    #[test]
+    fn should_access_query_on_first_frame() {
+        let mut app = App::new();
+        app.add_enum_filter::<TestEnum>();
+
+        let entity_unit = app.world.spawn_empty().id();
+        let entity_tuple = app.world.spawn_empty().id();
+        let entity_struct = app.world.spawn_empty().id();
+        app.world.entity_mut(entity_unit).insert(TestEnum::Unit);
+        app.world.entity_mut(entity_tuple).insert(TestEnum::Tuple(123));
+        app.world.entity_mut(entity_struct).insert(TestEnum::Struct { _foo: 123 });
+
+        let total_unit_components = app.world.query::<&Enum!(TestEnum::Unit)>().iter(&app.world).len();
+        let total_tuple_components = app.world.query::<&Enum!(TestEnum::Tuple)>().iter(&app.world).len();
+        let total_struct_components = app.world.query::<&Enum!(TestEnum::Struct)>().iter(&app.world).len();
+        assert_eq!(0, total_unit_components);
+        assert_eq!(0, total_tuple_components);
+        assert_eq!(0, total_struct_components);
+
+        // Ensure that the marker struct is created, mimicking how a real loop
+        // would work.
+        // Calling app.update() would run _all_ schedules, but we want to test
+        // that we have created the marker struct before the `Update` schedule
+        // runs.
+        app.world.run_schedule(PostStartup);
+
+        // We are now between the `PostStartup` schedule and `First` schedules.
+        // This is important as we need to check that the marker struct was
+        // created before the Update loop begins.
+        // This means that we can call `query.single()` or `query.single_mut()`
+        // without having to first check `query.is_empty()`, as the first
+        // iteration of `Update` will have a populated query, if it matches.
+
+        let total_unit_components = app.world.query::<&Enum!(TestEnum::Unit)>().iter(&app.world).len();
+        let total_tuple_components = app.world.query::<&Enum!(TestEnum::Tuple)>().iter(&app.world).len();
+        let total_struct_components = app.world.query::<&Enum!(TestEnum::Struct)>().iter(&app.world).len();
+        assert_eq!(1, total_unit_components);
+        assert_eq!(1, total_tuple_components);
+        assert_eq!(1, total_struct_components);
     }
 }
