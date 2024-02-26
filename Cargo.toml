@@ -1,6 +1,6 @@
 [package]
 name = "bevy_enum_filter"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 authors = ["Gino Valente <gino.valente.code@gmail.com>"]
 description = "Filter by enum variant in Bevy queries"
@@ -14,12 +14,12 @@ exclude = ["assets/**/*", ".github/**/*", "screenshots/**/*"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bevy_app = { version = "0.12", default_features = false }
-bevy_ecs = { version = "0.12", default_features = false }
+bevy_app = { version = "0.13", default_features = false }
+bevy_ecs = { version = "0.13", default_features = false }
 bevy_enum_filter_derive = { path = "./bevy_enum_filter_derive", version = "0.1.0" }
 
 [dev-dependencies]
-bevy = "0.12"
+bevy = "0.13"
 
 [[example]]
 name = "filtering"

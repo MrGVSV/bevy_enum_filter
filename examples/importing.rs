@@ -47,14 +47,14 @@ mod systems {
     use super::components::{choice_filters, Choice};
     // ! === Import Enum AND Filter Module === ! //
 
-    pub fn spawn(mut commands: Commands, input: Res<Input<KeyCode>>) {
-        if input.just_pressed(KeyCode::A) {
+    pub fn spawn(mut commands: Commands, input: Res<ButtonInput<KeyCode>>) {
+        if input.just_pressed(KeyCode::KeyA) {
             commands.spawn((Choice::A,));
         }
-        if input.just_pressed(KeyCode::B) {
+        if input.just_pressed(KeyCode::KeyB) {
             commands.spawn((Choice::B,));
         }
-        if input.just_pressed(KeyCode::C) {
+        if input.just_pressed(KeyCode::KeyC) {
             commands.spawn((Choice::C,));
         }
     }
