@@ -25,7 +25,7 @@ enum Toggle {
     Off,
 }
 
-fn toggle(mut query: Query<&mut Toggle>, input: Res<Input<KeyCode>>) {
+fn toggle(mut query: Query<&mut Toggle>, input: Res<ButtonInput<KeyCode>>) {
     if input.just_pressed(KeyCode::Space) {
         for mut state in &mut query {
             match *state {
